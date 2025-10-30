@@ -45,18 +45,15 @@ namespace Lab2
             
 
         }
-        public static int InputLengthArray(out int length)
+        public static int InputLengthArray(string num)
         {
 
-
-
-                    if (!int.TryParse(Console.ReadLine(), out length))
+                    if (!int.TryParse(num, out int length))
                         throw new Exception("Некорректный тип данных");
                     if (length <= 0)
                         throw new Exception("Длина массива должна быть больше 0");
 
                     return length;
-
 
 
 

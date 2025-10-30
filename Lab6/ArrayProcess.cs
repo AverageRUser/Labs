@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab2
 {
-    public class ArrayProcess
+    public class ArrayProcess : ICloneable
     {
         private int _length;
         private int[] _array;
@@ -24,10 +24,10 @@ namespace Lab2
         /// <summary>
         /// Массив элементов
         /// </summary>
-        public int[] Array
+        public int this[int index]
         {
-            get { return _array; }
-            private set { _array = value; }
+            get { return _array[index]; }
+             set { _array[index] = value; }
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Lab2
         public ArrayProcess()
         {
             Length = 10;
-            Array = InitializeArray(Length);
+            _array = new int[Length];
         }
 
         /// <summary>
@@ -46,14 +46,9 @@ namespace Lab2
         public ArrayProcess(int length)
         {
             Length = length;
-            Array = InitializeArray(Length);
+            _array = new int[Length];
         }
-        public ArrayProcess(ArrayProcess array)
-        {
-            Length = array.Length;
-            Array = array.Array;
 
-        }
         /// <summary>
         /// Сортировка вставками
         /// </summary>
@@ -63,19 +58,32 @@ namespace Lab2
         {
             for (int i = 1; i < Length; i++)
             {
-                int temp = Array[i];
+                int temp = _array[i];
                 int j = i - 1;
 
-                while (j >= 0 && Array[j] > temp)
+                while (j >= 0 && _array[j] > temp)
                 {
-                    Array[j + 1] =  Array[j];
-                    Array[j] = temp;
+                    _array[j + 1] =  _array[j];
+                    _array[j] = temp;
                     j--;
                 }
             }
-            return Array;
+            return _array;
         }
-
+        public int Min()
+        {
+            int min = _array[0];
+            int index = 0;
+            for (int i = 0; i < Length; i++)
+            {
+                if (_array[i] < min)
+                {
+                    min = _array[i];
+                    index = i;
+                }
+            }
+            return index;
+        }
         /// <summary>
         /// Гномья сортировка
         /// </summary>
@@ -111,15 +119,15 @@ namespace Lab2
         /// </summary>
         /// <param name="length">Длина массива</param>
         /// <returns>Заполненный массив</returns>
-        private static int[] InitializeArray(int length)
+        public void InitializeArray()
         {
-            int[] array = new int[length];
+            
             Random rn = new Random();
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < Length; i++)
             {
-                array[i] = rn.Next(1, 100);
+                _array[i] = rn.Next(1, 100);
             }
-            return array;
+
         }
 
         /// <summary>
@@ -135,31 +143,17 @@ namespace Lab2
             ArrayProcess copy = new ArrayProcess(arr.Length);
             for (int i = 0; i < arr.Length; i++)
             {
-                copy.Array[i] = arr[i];
+                copy[i] = arr[i];
             }
             return copy;
         }
 
-        /// <summary>
-        /// Выводит массив на консоль
-        /// </summary>
-        /// <param name="array">Массив для вывода</param>
-        public void PrintArray()
+        public object Clone()
         {
-            if (Length > 10)
-            {
-                Console.WriteLine("Невозможно вывести массив так как его длина больше 10");
-                return;
-            }
-
-            Console.WriteLine();
-            for (int i = 0; i < Length; i++)
-            {
-                Console.Write(" " + Array[i] + " ");
-            }
-            Console.WriteLine();
+            return new ArrayProcess(Length);
         }
 
-        
+
+
     }
 }

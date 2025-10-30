@@ -1,3 +1,5 @@
+using Lab2;
+
 namespace Lab6
 {
     public partial class Form1 : Form
@@ -17,6 +19,22 @@ namespace Lab6
         {
             About about = new About();
             about.Show();
+        }
+
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            if (GuessGame.IsRestart)
+            {
+                GuessGame.IsRestart = false;
+                GuessGameForm guessGameForm = new GuessGameForm();
+                guessGameForm.Show();
+            }
+        }
+
+        private void SortingButton_Click(object sender, EventArgs e)
+        {
+            ArraySorting sortingForm = new ArraySorting();
+            sortingForm.Show();
         }
     }
 }

@@ -16,6 +16,8 @@ namespace Lab2.SnakeGame.Snake
             this.x = x;
             this.y = y;
         }
+
+
         public static bool operator ==(Coord left, Coord right)
         {
             return left.x == right.x && left.y == right.y;
@@ -36,7 +38,7 @@ namespace Lab2.SnakeGame.Snake
         public const string Chead = "@";
         public const string Ctail = "o";
         private Queue<Coord> body = new Queue<Coord>();
-        private int _size = 1;
+        private int _size = 3;
         
         public int Length { get { return _size; } }
         /// <summary>
@@ -49,24 +51,22 @@ namespace Lab2.SnakeGame.Snake
             body.Clear();
             headX = startX;
             headY = startY + _size - 1;
-
+           
             for (int i = 0; i < _size; i++)
             {
                 body.Enqueue(new Coord(startX,startY+i));
             }
-
+          //  body.Enqueue(new Coord(headX,headY));
         }
 
         public Coord Move(int newX, int newY)
         {
             body.Enqueue(new Coord(newX, newY));
-            headX = newX;
-            headY = newY;
 
-        
             if (body.Count > _size)
             {
-                return body.Dequeue();
+              return body.Dequeue();
+
             }
             return new Coord(-1, 1);
         }
@@ -88,7 +88,7 @@ namespace Lab2.SnakeGame.Snake
                 }
             }
         }
-        public void Print(ref string[,] m)
+        public void Print(string[,] m)
         {
             int x= 0, y=0;
             Game.SetSpawnCoord(ref x, ref y, m.GetLength(0), m.GetLength(1));

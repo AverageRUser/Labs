@@ -77,6 +77,7 @@
             SortingButton.TabIndex = 3;
             SortingButton.Text = "Сортировка массива";
             SortingButton.UseVisualStyleBackColor = true;
+            SortingButton.Click += SortingButton_Click;
             // 
             // button1
             // 
@@ -100,6 +101,7 @@
             Controls.Add(LabelMenu);
             Name = "Form1";
             Text = "Лабораторная №6";
+            Activated += Form1_Activated;
             ResumeLayout(false);
             PerformLayout();
         }

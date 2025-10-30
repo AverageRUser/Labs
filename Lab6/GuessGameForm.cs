@@ -13,11 +13,11 @@ namespace Lab6
 {
     public partial class GuessGameForm : Form
     {
-        int time;
+        
         public GuessGameForm()
         {
             InitializeComponent();
-            time = 60;
+            
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
@@ -62,35 +62,7 @@ namespace Lab6
         }
 
 
-        private void GuessGameForm_Activated(object sender, EventArgs e)
-        {
-            
 
-            if (GuessGame.Attempts == 0 || GuessGame.IsAnswerCorrect || time == 0)
-            {
-                GameTick.Stop();
-                DialogResult = MessageBox.Show("Перезапустить?", $"Игра окончена!\nПравильный ответ - {GuessGame.Answer}", MessageBoxButtons.YesNo);
-                if (DialogResult == DialogResult.Yes)
-                {
-                   
-                    GuessGame._isFilled = false;
-
-                    label4.Visible = false;
-                    textBoxAnswer.Visible = false;
-                    AttemptsLabel.Visible = false;
-                    textBoxAttempts.Enabled = true;
-                    textBoxA.Enabled = true;
-                    textBoxA.Enabled = true;
-                }
-                else
-                {
-                    Close();
-                }
-
-
-            }
-
-        }
 
         private void textBoxAttempts_KeyDown(object sender, KeyEventArgs e)
         {
@@ -102,7 +74,7 @@ namespace Lab6
                     if (GuessGame.Attempts != 0)
                     {
                         textBoxAttempts.Enabled = false;
-                        GuessGame._isFilled = true;
+                        GuessGame.IsFilled = true;
                         label4.Visible = true;
                         textBoxAnswer.Visible = true;
                         AttemptsLabel.Visible = true;
@@ -128,7 +100,7 @@ namespace Lab6
                     double ans = InputValidator.FillDouble(textBoxAnswer.Text);
                     if (ans == Math.Round(GuessGame.Answer, 2))
                     {
-                        MessageBox.Show("Победа", "Правильный ответ!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        MessageBox.Show("Правильный ответ!", "Победа", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         GuessGame.IsAnswerCorrect = true;
                     }
                     else
@@ -149,9 +121,9 @@ namespace Lab6
 
         private void GameTick_Tick(object sender, EventArgs e)
         {
-            
-            time--;
-            labelTime.Text = time.ToString();
+            EndGame();
+            GuessGame.Tick();
+            labelTime.Text = GuessGame.Time.ToString();
         }
 
         private void textBoxAttempts_TextChanged(object sender, EventArgs e)
@@ -159,15 +131,23 @@ namespace Lab6
 
         }
 
-        private void GuessGameForm_Enter(object sender, EventArgs e)
+     
+        public void EndGame()
         {
-            if (GuessGame._isFilled)
+            if (GuessGame.Attempts == 0 || GuessGame.IsAnswerCorrect || GuessGame.Time == 0)
             {
-                MessageBox.Show("", "");
-              
+                GameTick.Stop();
+                DialogResult = MessageBox.Show($"Игра окончена!\nПравильный ответ: {Math.Round(GuessGame.Answer, 2)}", "Перезапустить?", MessageBoxButtons.YesNo);
+                if (DialogResult == DialogResult.Yes)
+                {
+                    GuessGame.Restart();
+                 
+                }
+                    Close();
 
 
             }
         }
+
     }
 }

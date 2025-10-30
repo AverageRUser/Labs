@@ -7,21 +7,31 @@ using System.Threading.Tasks;
 
 namespace Lab2.SnakeGame.Snake
 {
-    public static class Game
+
+    public class Game
     {
         public static bool IsPaused;
         public static bool IsPlaying;
         public static int CountFeed;
-        public static string[,] GameField = new string[20, 20];
-        public static bool WallCollision(Snake snake, string[,] field)
+        const int m =20, n = 20;
+        public string[,] GameField;
+        private static Snake snake;
+        private static List<Obstacle> obstacles;
+        private static Food food;
+        public static Coord SnakeHead { get { return new Coord(snake.headX,snake.headY); } }
+        public Game()
         {
-            if (snake.headX < 0 || snake.headX >= field.GetLength(0) || snake.headY < 0 || snake.headY >= field.GetLength(1))
+            GameField = new string[m,n];
+        }
+        public  bool WallCollision()
+        {
+            if (snake.headX < 0 || snake.headX >= GameField.GetLength(0) || snake.headY < 0 || snake.headY >= GameField.GetLength(1))
             {
                 return true;
             }
             return false;
         }
-        public static bool SnakeTailCollision(Snake snake, string[,] field)
+        public static bool SnakeTailCollision()
         {
             foreach (var segment in snake.GetBody())
             {
@@ -31,7 +41,7 @@ namespace Lab2.SnakeGame.Snake
             return false;
         }
 
-        public static void StateUpdate(Snake snake, Food food, List<Obstacle> obstacles, ConsoleKey? direction = null)
+        public void StateUpdate(ConsoleKey? direction = null)
         {
             if (direction.HasValue)
             {
@@ -57,7 +67,7 @@ namespace Lab2.SnakeGame.Snake
                         break;
 
                 }
-                if (WallCollision(snake, GameField) || SnakeTailCollision(snake, GameField))
+                if (WallCollision() || SnakeTailCollision())
                 {
                     IsPlaying = false;
                     return;
@@ -89,8 +99,6 @@ namespace Lab2.SnakeGame.Snake
                     GameField[removedTail.x, removedTail.y] = ".";
                 }
 
-                GameField[snake.headX, snake.headY] = Snake.Chead;
-
                 snake.Redraw(GameField);
             }
         }
@@ -100,26 +108,22 @@ namespace Lab2.SnakeGame.Snake
             x = random.Next(1, maxX - 1);
             y = random.Next(1, maxY - 3);
         }
-        static void InitializeField()
+        public void InitializeField()
         {
-            int rows = GameField.GetLength(0);
-            int columns = GameField.GetLength(1);
-            for (int x = 0; x < rows; x++)
+            for (int x = 0; x < m; x++)
             {
-                for (int y = 0; y < columns; y++)
+                for (int y = 0; y < n; y++)
                 {
                     GameField[x, y] = ".";
                 }
 
             }
         }
-        public static void PrintField()
+        public  void PrintField()
         {
-            int rows = GameField.GetLength(0);
-            int columns = GameField.GetLength(1);
-            for (int x = 0; x < rows; x++)
+            for (int x = 0; x < m; x++)
             {
-                for (int y = 0; y < columns; y++)
+                for (int y = 0; y < n; y++)
                 {
                     Console.Write($"{GameField[x, y]} ");
                 }
@@ -130,17 +134,20 @@ namespace Lab2.SnakeGame.Snake
         {
             CountFeed = 0;
         }
-        public static void Start(Snake snake, Food food, List<Obstacle> obstacles)
+        public  void Start()
         {
+            snake = new Snake();
+            food = new Food();
+            obstacles = new List<Obstacle>();
             InitializeField();
             Random random = new Random();
             for (int x = 0; x < random.Next(2, 13); x++)
             {
                 obstacles.Add(new Obstacle());
                 obstacles[x].Spawn(GameField, snake, food);
-                obstacles[x].Print(ref GameField, snake, food);
+                obstacles[x].Print(GameField, snake, food);
             }
-            snake.Print(ref GameField);
+            snake.Print(GameField);
             food.Print(ref GameField, snake, obstacles);
             IsPlaying = true;
         }

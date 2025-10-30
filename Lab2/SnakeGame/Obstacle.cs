@@ -39,7 +39,7 @@ namespace Lab2.SnakeGame.Snake
                 }
             } while (!isValid);
         }
-        public void Print(ref string[,] field, Snake snake, Food food)
+        public void Print(string[,] field, Snake snake, Food food)
         {
 
             Spawn(field, snake, food);

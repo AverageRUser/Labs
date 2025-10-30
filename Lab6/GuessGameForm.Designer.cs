@@ -167,8 +167,6 @@
             Controls.Add(pictureBox1);
             Name = "GuessGameForm";
             Text = "Угадай число";
-            Activated += GuessGameForm_Activated;
-            Enter += GuessGameForm_Enter;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

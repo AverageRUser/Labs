@@ -15,7 +15,7 @@ namespace Lab2
             
             InputValidator.InputLengthArray(out n);
             ArrayProcess array = new ArrayProcess(n);
-            ArrayProcess ArrClone = array.CloneArray(array.Array);
+            ArrayProcess ArrClone = new ArrayProcess(array);
             Console.WriteLine("Исходный массив: ");
             array.PrintArray();
             Console.WriteLine("Сортировка вставками: ");
@@ -44,21 +44,19 @@ namespace Lab2
         }
         public static void SnakeGame()
         {
-            Snake snake = new Snake();
-            Food food = new Food();
-            List<Obstacle> obstacles = new List<Obstacle>();
-            Game.Start(snake, food, obstacles);
+            Game game = new Game();
+            game.Start();
             ConsoleKey Direction = ConsoleKey.RightArrow;
 
             while (Game.IsPlaying)
             {
                 Console.Clear();
-                Console.WriteLine("Змея x:{1} y:{0}\nРазмер: {2}\nСъеденно: {3}", snake.headX, snake.headY, snake.Length, Game.CountFeed);
+                Console.WriteLine("Змея x:{1} y:{0}\n\nСъеденно: {2}", Game.SnakeHead.x, Game.SnakeHead.y, Game.CountFeed);
                 if (Game.IsPaused == true)
                 {
                     Console.WriteLine("\t\tПауза");
                 }
-                Game.PrintField();
+                game.PrintField();
                 ConsoleKey? currentKey = null;
                 while (Game.IsPaused)
                 {
@@ -82,7 +80,7 @@ namespace Lab2
 
                 if (!Game.IsPaused)
                 {
-                    Game.StateUpdate(snake, food, obstacles, Direction);
+                    game.StateUpdate(Direction);
                 }
                 Thread.Sleep(300);
             }
