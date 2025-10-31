@@ -36,5 +36,11 @@ namespace Lab6
             ArraySorting sortingForm = new ArraySorting();
             sortingForm.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SnakeForm snakeForm = new SnakeForm();
+            snakeForm.Show();
+        }
     }
 }

@@ -13,19 +13,23 @@ namespace Lab2.SnakeGame.Snake
         public static bool IsPaused;
         public static bool IsPlaying;
         public static int CountFeed;
-        const int m =20, n = 20;
-        public string[,] GameField;
+
+        public const int GRID_SIZE = 20;
+        public const int CELL_SIZE = 20;
+        public const int GAME_SPEED = 150;
+
+        private DataGridView GameField;
         private static Snake snake;
         private static List<Obstacle> obstacles;
         private static Food food;
         public static Coord SnakeHead { get { return new Coord(snake.headX,snake.headY); } }
-        public Game()
+        public Game(DataGridView grid)
         {
-            GameField = new string[m,n];
+            GameField = grid;
         }
         public  bool WallCollision()
         {
-            if (snake.headX < 0 || snake.headX >= GameField.GetLength(0) || snake.headY < 0 || snake.headY >= GameField.GetLength(1))
+            if (snake.headX < 0 || snake.headX >= GameField.RowCount || snake.headY < 0 || snake.headY >= GameField.ColumnCount)
             {
                 return true;
             }
@@ -41,29 +45,23 @@ namespace Lab2.SnakeGame.Snake
             return false;
         }
 
-        public void StateUpdate(ConsoleKey? direction = null)
+        public void StateUpdate(Keys? direction = null)
         {
             if (direction.HasValue)
             {
                 switch (direction)
                 {
-                    case ConsoleKey.UpArrow:
+                    case Keys.Up:
                         snake.headX--;
-
                         break;
-                    case ConsoleKey.DownArrow:
+                    case Keys.Down:
                         snake.headX++;
-
                         break;
-                    case ConsoleKey.LeftArrow:
+                    case Keys.Left:
                         snake.headY--;
-
                         break;
-                    case ConsoleKey.RightArrow:
+                    case Keys.Right:
                         snake.headY++;
-                        break;
-                    default:
-                        snake.headX--;
                         break;
 
                 }
@@ -96,56 +94,47 @@ namespace Lab2.SnakeGame.Snake
 
                 if (removedTail != new Coord(-1, 1))
                 {
-                    GameField[removedTail.x, removedTail.y] = ".";
+                    ClearCell(removedTail.x, removedTail.y);
                 }
 
                 snake.Redraw(GameField);
             }
         }
+      
+        private void ClearCell(int x, int y)
+        {
+            if (x >= 0 && x < GameField.RowCount && y >= 0 && y < GameField.ColumnCount)
+            {
+                GameField.Rows[x].Cells[y].Value = "";
+                GameField.Rows[x].Cells[y].Style.BackColor = Color.White;
+            }
+        }
+       
         public static void SetSpawnCoord(ref int x, ref int y, int maxX, int maxY)
         {
             Random random = new Random();
             x = random.Next(1, maxX - 1);
             y = random.Next(1, maxY - 3);
         }
-        public void InitializeField()
-        {
-            for (int x = 0; x < m; x++)
-            {
-                for (int y = 0; y < n; y++)
-                {
-                    GameField[x, y] = ".";
-                }
-
-            }
-        }
-        public  void PrintField()
-        {
-            for (int x = 0; x < m; x++)
-            {
-                for (int y = 0; y < n; y++)
-                {
-                    Console.Write($"{GameField[x, y]} ");
-                }
-                Console.WriteLine();
-            }
-        }
+    
         public static void Restart()
         {
             CountFeed = 0;
         }
+       
         public  void Start()
         {
             snake = new Snake();
             food = new Food();
             obstacles = new List<Obstacle>();
-            InitializeField();
+           
             Random random = new Random();
             for (int x = 0; x < random.Next(2, 13); x++)
             {
-                obstacles.Add(new Obstacle());
-                obstacles[x].Spawn(GameField, snake, food);
-                obstacles[x].Print(GameField, snake, food);
+                Obstacle obstacle = new Obstacle();
+                obstacle.Spawn(GameField, snake, food);
+                obstacle.Print(GameField, snake, food);
+                obstacles.Add(obstacle);
             }
             snake.Print(GameField);
             food.Print(GameField, snake, obstacles);

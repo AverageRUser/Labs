@@ -11,10 +11,9 @@ namespace Lab2.SnakeGame.Snake
     {
         private int x;
         private int y;
-        public string CFood = "♥";
-        public int X { set { x = X; } get { return x; } }
-        public int Y { set { y = Y; } get { return y; } }
-        public void Spawn(string[,] field, Snake snake, List<Obstacle> obstacles)
+        public int X { set { x = value; } get { return x; } }
+        public int Y { set { y = value; } get { return y; } }
+        public void Spawn(DataGridView gameGrid, Snake snake, List<Obstacle> obstacles)
         {
 
             bool isValid;
@@ -22,7 +21,7 @@ namespace Lab2.SnakeGame.Snake
             do
             {
 
-                Game.SetSpawnCoord(ref x, ref y, field.GetLength(0), field.GetLength(1));
+                Game.SetSpawnCoord(ref x, ref y, gameGrid.RowCount, gameGrid.ColumnCount);
                 isValid = true;
                 var body = snake.GetBody().ToArray();
 
@@ -46,10 +45,20 @@ namespace Lab2.SnakeGame.Snake
 
             } while (!isValid);
         }
-        public void Print(string[,] field, Snake snake, List<Obstacle> obstacles)
+        public void Print(DataGridView gameGrid, Snake snake, List<Obstacle> obstacles)
         {
-            Spawn(field, snake, obstacles);
-            field[x, y] = CFood;
+            Spawn(gameGrid, snake, obstacles);
+            UpdateGridCell(gameGrid, x, y, Color.Red);
+        }
+        private void UpdateGridCell(DataGridView grid, int row, int col, Color color)
+        {
+            if (row >= 0 && row < grid.RowCount && col >= 0 && col < grid.ColumnCount)
+            {
+                grid.Rows[row].Cells[col].Style.BackColor = color;
+
+            }
         }
     }
+
 }
+
