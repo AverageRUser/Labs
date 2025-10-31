@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab2
 {
-    public class ArrayProcess : ICloneable
+    public class ArrayProcess
     {
         private int _length;
         private int[] _array;
@@ -49,26 +49,26 @@ namespace Lab2
             _array = new int[Length];
         }
 
+
         /// <summary>
         /// Сортировка вставками
         /// </summary>
         /// <param name="arr">Массив для сортировки</param>
         /// <returns>Отсортированный массив</returns>
-        public int[] InsertionSort()
+        public void InsertionSort()
         {
             for (int i = 1; i < Length; i++)
             {
                 int temp = _array[i];
-                int j = i - 1;
-
-                while (j >= 0 && _array[j] > temp)
-                {
-                    _array[j + 1] =  _array[j];
-                    _array[j] = temp;
-                    j--;
+                for(int j = i - 1; j >= 0; j--)
+                { 
+                    if(_array[j] < temp)
+                    {
+                        _array[j + 1] = _array[j];
+                        _array[j] = temp;
+                    }
                 }
             }
-            return _array;
         }
         public int Min()
         {
@@ -84,14 +84,38 @@ namespace Lab2
             }
             return index;
         }
+        public int Max()
+        {
+            int max = _array[0];
+            int index = 0;
+            for (int i = 0; i < Length; i++)
+            {
+                if (_array[i] > max)
+                {
+                    max = _array[i];
+                    index = i;
+                }
+            }
+            return index;
+        }
+        public int Avg()
+        {
+            int sum =0;
+
+            foreach(int i in _array)
+            {
+                sum += i;
+            }
+            return sum / _array.Length;
+        }
         /// <summary>
         /// Гномья сортировка
         /// </summary>
         /// <param name="arr">Массив для сортировки</param>
         /// <returns>Отсортированный массив</returns>
-        public static int[] GnomeSort(int[] arr)
+        public void GnomeSort()
         {
-            for (int i = 0; i < arr.Length;)
+            for (int i = 0; i < Length;)
             {
                 int temp = 0;
                 if (i == 0)
@@ -99,19 +123,18 @@ namespace Lab2
                     i++;
                 }
 
-                if (arr[i] >= arr[i - 1])
+                if (_array[i] >= _array[i - 1])
                 {
                     i++;
                 }
                 else
                 {
-                    temp = arr[i];
-                    arr[i] = arr[i - 1];
-                    arr[i - 1] = temp;
+                    temp = _array[i];
+                    _array[i] = _array[i - 1];
+                    _array[i - 1] = temp;
                     i--;
                 }
             }
-            return arr;
         }
 
         /// <summary>
@@ -135,23 +158,19 @@ namespace Lab2
         /// </summary>
         /// <param name="arr">Исходный массив</param>
         /// <returns>Копия массива</returns>
-        public ArrayProcess CloneArray(int[] arr)
+        public ArrayProcess CloneArray()
         {
-            if (arr == null)
+            if (_array == null)
                 return null;
 
-            ArrayProcess copy = new ArrayProcess(arr.Length);
-            for (int i = 0; i < arr.Length; i++)
+            ArrayProcess copy = new ArrayProcess(Length);
+            for (int i = 0; i < Length; i++)
             {
-                copy[i] = arr[i];
+                copy[i] = _array[i];
             }
             return copy;
         }
 
-        public object Clone()
-        {
-            return new ArrayProcess(Length);
-        }
 
 
 

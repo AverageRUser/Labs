@@ -28,33 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             dataGridArrays = new DataGridView();
-            arrayProcessBindingSource = new BindingSource(components);
             textBox1 = new TextBox();
             label1 = new Label();
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
             button4 = new Button();
-            button5 = new Button();
-            button7 = new Button();
-            button8 = new Button();
+            Avgbutton = new Button();
+            GnomeSort = new Button();
+            buttonInsert = new Button();
+            Avglabel = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridArrays).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)arrayProcessBindingSource).BeginInit();
             SuspendLayout();
             // 
             // dataGridArrays
             // 
             dataGridArrays.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridArrays.Location = new Point(389, 12);
+            dataGridArrays.Location = new Point(207, 45);
             dataGridArrays.Name = "dataGridArrays";
-            dataGridArrays.Size = new Size(399, 426);
+            dataGridArrays.Size = new Size(411, 380);
             dataGridArrays.TabIndex = 0;
-            // 
-            // arrayProcessBindingSource
-            // 
-            arrayProcessBindingSource.DataSource = typeof(Lab2.ArrayProcess);
+            dataGridArrays.CellEndEdit += dataGridArrays_CellEndEdit;
             // 
             // textBox1
             // 
@@ -104,6 +99,7 @@
             button3.TabIndex = 5;
             button3.Text = "Найти максимальное значение";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button4
             // 
@@ -116,44 +112,59 @@
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
-            // button5
+            // Avgbutton
             // 
-            button5.Enabled = false;
-            button5.Location = new Point(26, 290);
-            button5.Name = "button5";
-            button5.Size = new Size(148, 41);
-            button5.TabIndex = 7;
-            button5.Text = "Найти среднее арифметическое";
-            button5.UseVisualStyleBackColor = true;
+            Avgbutton.Enabled = false;
+            Avgbutton.Location = new Point(26, 290);
+            Avgbutton.Name = "Avgbutton";
+            Avgbutton.Size = new Size(148, 41);
+            Avgbutton.TabIndex = 7;
+            Avgbutton.Text = "Найти среднее арифметическое";
+            Avgbutton.UseVisualStyleBackColor = true;
+            Avgbutton.Click += Avgbutton_Click;
             // 
-            // button7
+            // GnomeSort
             // 
-            button7.Enabled = false;
-            button7.Location = new Point(26, 337);
-            button7.Name = "button7";
-            button7.Size = new Size(148, 41);
-            button7.TabIndex = 9;
-            button7.Text = "Гномья сортировка";
-            button7.UseVisualStyleBackColor = true;
+            GnomeSort.Enabled = false;
+            GnomeSort.Location = new Point(26, 337);
+            GnomeSort.Name = "GnomeSort";
+            GnomeSort.Size = new Size(148, 41);
+            GnomeSort.TabIndex = 9;
+            GnomeSort.Text = "Гномья сортировка";
+            GnomeSort.UseVisualStyleBackColor = true;
+            GnomeSort.Click += GnomeSort_Click;
             // 
-            // button8
+            // buttonInsert
             // 
-            button8.Enabled = false;
-            button8.Location = new Point(26, 384);
-            button8.Name = "button8";
-            button8.Size = new Size(148, 41);
-            button8.TabIndex = 10;
-            button8.Text = "Сортировка вставками";
-            button8.UseVisualStyleBackColor = true;
+            buttonInsert.Enabled = false;
+            buttonInsert.Location = new Point(26, 384);
+            buttonInsert.Name = "buttonInsert";
+            buttonInsert.Size = new Size(148, 41);
+            buttonInsert.TabIndex = 10;
+            buttonInsert.Text = "Сортировка вставками";
+            buttonInsert.UseVisualStyleBackColor = true;
+            buttonInsert.Click += buttonInsert_Click;
+            // 
+            // Avglabel
+            // 
+            Avglabel.AutoSize = true;
+            Avglabel.Location = new Point(207, 26);
+            Avglabel.Name = "Avglabel";
+            Avglabel.Size = new Size(38, 15);
+            Avglabel.TabIndex = 11;
+            Avglabel.Text = "label2";
+            Avglabel.TextAlign = ContentAlignment.MiddleCenter;
+            Avglabel.Visible = false;
             // 
             // ArraySorting
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(button8);
-            Controls.Add(button7);
-            Controls.Add(button5);
+            ClientSize = new Size(650, 450);
+            Controls.Add(Avglabel);
+            Controls.Add(buttonInsert);
+            Controls.Add(GnomeSort);
+            Controls.Add(Avgbutton);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
@@ -164,7 +175,6 @@
             Name = "ArraySorting";
             Text = "ArraySorting";
             ((System.ComponentModel.ISupportInitialize)dataGridArrays).EndInit();
-            ((System.ComponentModel.ISupportInitialize)arrayProcessBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -178,9 +188,9 @@
         private Button button2;
         private Button button3;
         private Button button4;
-        private Button button5;
-        private Button button7;
-        private Button button8;
-        private BindingSource arrayProcessBindingSource;
+        private Button Avgbutton;
+        private Button GnomeSort;
+        private Button buttonInsert;
+        private Label Avglabel;
     }
 }
