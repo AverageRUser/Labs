@@ -30,7 +30,7 @@ namespace Lab2.SnakeGame.Snake
 
                 foreach (var segment in body)
                 {
-                    if (segment.x == x && segment.y == y || x == food.X && y == food.Y)
+                    if (segment.X == x && segment.Y == y || x == food.X && y == food.Y)
                     {
                         isValid = false;
                         break;

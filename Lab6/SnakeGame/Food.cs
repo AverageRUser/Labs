@@ -27,7 +27,7 @@ namespace Lab2.SnakeGame.Snake
 
                 foreach (var segment in body)
                 {
-                    if (segment.x == x && segment.y == y)
+                    if (segment.X == x && segment.Y == y)
                     {
                         isValid = false;
                         break;

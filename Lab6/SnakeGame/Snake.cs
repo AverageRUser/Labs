@@ -9,22 +9,22 @@ namespace Lab2.SnakeGame.Snake
 
     public struct Coord
     {
-        public int x;
-        public int y;
+        public int X;
+        public int Y;
         public Coord(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            X = x;
+            Y = y;
         }
 
 
         public static bool operator ==(Coord left, Coord right)
         {
-            return left.x == right.x && left.y == right.y;
+            return left.X == right.X && left.Y == right.Y;
         }
         public static bool operator != (Coord left, Coord right)
         {
-            return !(left.x == right.x && left.y == right.y);
+            return !(left.X == right.X && left.Y == right.Y);
         }
     }
     /// <summary>
@@ -54,7 +54,6 @@ namespace Lab2.SnakeGame.Snake
             {
                 body.Enqueue(new Coord(startX,startY+i));
             }
-          //  body.Enqueue(new Coord(headX,headY));
         }
 
         public Coord Move(int newX, int newY)
@@ -78,11 +77,11 @@ namespace Lab2.SnakeGame.Snake
                 Coord coord = bodyArray[i];
                 if (i == bodyArray.Length - 1)
                 {
-                    UpdateGridCell(grid, coord.x, coord.y, Color.DarkGreen);
+                    UpdateGridCell(grid, coord.X, coord.Y, Color.DarkGreen);
                 }
                 else
                 {
-                    UpdateGridCell(grid, coord.x, coord.y, Color.Green);
+                    UpdateGridCell(grid, coord.X, coord.Y, Color.Green);
                 }
             }
         }

@@ -39,7 +39,7 @@ namespace Lab2.SnakeGame.Snake
         {
             foreach (var segment in snake.GetBody())
             {
-                if (segment.x == snake.headX && segment.y == snake.headY)
+                if (segment.X == snake.headX && segment.Y == snake.headY)
                     return true;
             }
             return false;
@@ -94,7 +94,7 @@ namespace Lab2.SnakeGame.Snake
 
                 if (removedTail != new Coord(-1, 1))
                 {
-                    ClearCell(removedTail.x, removedTail.y);
+                    ClearCell(removedTail.X, removedTail.Y);
                 }
 
                 snake.Redraw(GameField);

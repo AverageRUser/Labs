@@ -32,8 +32,8 @@
             gameGrid = new DataGridView();
             scoreLabel = new Label();
             gameTimer = new System.Windows.Forms.Timer(components);
-            buttonStart = new Button();
-            PauseButton = new Button();
+            StartLabel = new Label();
+            Plabel = new Label();
             ((System.ComponentModel.ISupportInitialize)gameGrid).BeginInit();
             SuspendLayout();
             // 
@@ -46,19 +46,19 @@
             gameGrid.BackgroundColor = Color.White;
             gameGrid.ColumnHeadersVisible = false;
             gameGrid.Enabled = false;
-            gameGrid.Location = new Point(12, 64);
+            gameGrid.Location = new Point(12, 54);
             gameGrid.Name = "gameGrid";
             gameGrid.ReadOnly = true;
             gameGrid.RowHeadersVisible = false;
             gameGrid.ScrollBars = ScrollBars.None;
-            gameGrid.Size = new Size(450, 470);
+            gameGrid.Size = new Size(400, 400);
             gameGrid.TabIndex = 4;
             // 
             // scoreLabel
             // 
             scoreLabel.AutoSize = true;
             scoreLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            scoreLabel.Location = new Point(12, 29);
+            scoreLabel.Location = new Point(12, 9);
             scoreLabel.Name = "scoreLabel";
             scoreLabel.Size = new Size(78, 32);
             scoreLabel.TabIndex = 1;
@@ -68,33 +68,34 @@
             // 
             gameTimer.Tick += gameTimer_Tick;
             // 
-            // buttonStart
+            // StartLabel
             // 
-            buttonStart.Location = new Point(541, 29);
-            buttonStart.Name = "buttonStart";
-            buttonStart.Size = new Size(146, 57);
-            buttonStart.TabIndex = 2;
-            buttonStart.Text = "Старт";
-            buttonStart.UseVisualStyleBackColor = true;
-            buttonStart.Click += buttonStart_Click;
+            StartLabel.AutoSize = true;
+            StartLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            StartLabel.Location = new Point(43, 229);
+            StartLabel.Name = "StartLabel";
+            StartLabel.Size = new Size(354, 30);
+            StartLabel.TabIndex = 5;
+            StartLabel.Text = "Нажмите ПРОБЕЛ для начала игры";
             // 
-            // PauseButton
+            // Plabel
             // 
-            PauseButton.Location = new Point(541, 107);
-            PauseButton.Name = "PauseButton";
-            PauseButton.Size = new Size(146, 51);
-            PauseButton.TabIndex = 3;
-            PauseButton.Text = "Пауза";
-            PauseButton.UseVisualStyleBackColor = true;
-            PauseButton.Click += PauseButton_Click;
+            Plabel.AutoSize = true;
+            Plabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            Plabel.Location = new Point(183, 229);
+            Plabel.Name = "Plabel";
+            Plabel.Size = new Size(69, 30);
+            Plabel.TabIndex = 6;
+            Plabel.Text = "Пауза";
+            Plabel.Visible = false;
             // 
             // SnakeForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(784, 592);
-            Controls.Add(PauseButton);
-            Controls.Add(buttonStart);
+            ClientSize = new Size(417, 459);
+            Controls.Add(Plabel);
+            Controls.Add(StartLabel);
             Controls.Add(scoreLabel);
             Controls.Add(gameGrid);
             Name = "SnakeForm";
@@ -110,7 +111,7 @@
         private DataGridView gameGrid;
         private Label scoreLabel;
         private System.Windows.Forms.Timer gameTimer;
-        private Button buttonStart;
-        private Button PauseButton;
+        private Label StartLabel;
+        private Label Plabel;
     }
 }

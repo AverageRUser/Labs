@@ -61,18 +61,18 @@ namespace Lab6
             {
                 gameTimer.Stop();
                 Game.IsPaused = true;
-                PauseButton.Text = "Продолжить";
+               Plabel.Visible = true;
             }
             else if (Game.IsPlaying && Game.IsPaused)
             {
                 gameTimer.Start();
                 Game.IsPaused = false;
-                PauseButton.Text = "Пауза";
+                Plabel.Visible = false;
             }
         }
         private void SnakeForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!Game.IsPlaying || Game.IsPaused) return;
+          
 
             switch (e.KeyCode)
             {
@@ -95,7 +95,12 @@ namespace Lab6
                     break;
 
                 case Keys.Space:
-                    TogglePause();
+                    if (!Game.IsPlaying)
+                    {
+                        StartGame();
+                    }
+                    else 
+                        TogglePause();
                     break;
             }
 
@@ -132,34 +137,29 @@ namespace Lab6
             scoreLabel.Text = $"Счет: {Game.CountFeed}";
         }
 
-        private void buttonStart_Click(object sender, EventArgs e)
+        private void StartGame()
         {
             ClearGrid();
-            game.Start();
+            game.Start(); 
             Game.IsPlaying = true;
             Game.IsPaused = false;
             gameTimer.Start();
+            StartLabel.Visible = false;
 
-            buttonStart.Enabled = false;
-            PauseButton.Enabled = true;
 
+            Game.Restart();
             UpdateScore();
         }
         private void GameOver()
         {
             gameTimer.Stop();
             Game.IsPlaying = false;
+            StartLabel.Visible= true;
 
-            buttonStart.Enabled = true;
-            PauseButton.Enabled = false;
-            PauseButton.Text = "Пауза";
 
             MessageBox.Show($"Ваш счет: {Game.CountFeed}", "Игра окончена!");
         }
-        private void PauseButton_Click(object sender, EventArgs e)
-        {
-            TogglePause();
-        }
+     
    
     }
 }
