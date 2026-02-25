@@ -33,7 +33,7 @@ namespace Lab2.SnakeGame.Snake
                     if (segment.X == x && segment.Y == y || x == food.X && y == food.Y)
                     {
                         isValid = false;
-                        break;
+     
                     }
                 }
                 if (x == food.X && y == food.Y)

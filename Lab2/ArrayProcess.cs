@@ -54,6 +54,7 @@ namespace Lab2
             Array = array.Array;
 
         }
+        
         /// <summary>
         /// Сортировка вставками
         /// </summary>

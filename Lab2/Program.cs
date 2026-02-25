@@ -51,7 +51,7 @@ namespace Lab2
             while (Game.IsPlaying)
             {
                 Console.Clear();
-                Console.WriteLine("Змея x:{1} y:{0}\n\nСъеденно: {2}", Game.SnakeHead.x, Game.SnakeHead.y, Game.CountFeed);
+                Console.WriteLine("Змея x:{1} y:{0}\n\nСъеденно: {2}", game.SnakeHead.x, game.SnakeHead.y, Game.CountFeed);
                 if (Game.IsPaused == true)
                 {
                     Console.WriteLine("\t\tПауза");

@@ -38,9 +38,9 @@ namespace Lab2.SnakeGame.Snake
         public const string Chead = "@";
         public const string Ctail = "o";
         private Queue<Coord> body = new Queue<Coord>();
-        private int _size = 3;
+        private int size = 3;
         
-        public int Length { get { return _size; } }
+        public int Length { get { return size; } }
         /// <summary>
         /// Инициализация тела змейки
         /// </summary>
@@ -50,9 +50,9 @@ namespace Lab2.SnakeGame.Snake
         {
             body.Clear();
             headX = startX;
-            headY = startY + _size - 1;
+            headY = startY + size - 1;
            
-            for (int i = 0; i < _size; i++)
+            for (int i = 0; i < size; i++)
             {
                 body.Enqueue(new Coord(startX,startY+i));
             }
@@ -63,12 +63,7 @@ namespace Lab2.SnakeGame.Snake
         {
             body.Enqueue(new Coord(newX, newY));
 
-            if (body.Count > _size)
-            {
-              return body.Dequeue();
-
-            }
-            return new Coord(-1, 1);
+            return body.Count > size ? body.Dequeue() : new Coord(-1, 1);
         }
         public void Redraw(string[,] m)
         {
@@ -98,7 +93,7 @@ namespace Lab2.SnakeGame.Snake
         }
         public void Grow()
         {
-            _size++;
+            size++;
         }
 
         public Queue<Coord> GetBody()

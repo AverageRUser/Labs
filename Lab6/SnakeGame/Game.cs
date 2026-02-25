@@ -27,13 +27,10 @@ namespace Lab2.SnakeGame.Snake
         {
             GameField = grid;
         }
-        public  bool WallCollision()
+        private bool WallCollision()
         {
-            if (snake.headX < 0 || snake.headX >= GameField.RowCount || snake.headY < 0 || snake.headY >= GameField.ColumnCount)
-            {
-                return true;
-            }
-            return false;
+          
+            return snake.headX < 0 || snake.headX >= GameField.RowCount || snake.headY < 0 || snake.headY >= GameField.ColumnCount;
         }
         public static bool SnakeTailCollision()
         {

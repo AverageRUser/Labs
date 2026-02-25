@@ -31,7 +31,7 @@ namespace Lab2.SnakeGame.Snake
                     if (segment.x == x && segment.y == y)
                     {
                         isValid = false;
-                        break;
+           
                     }
 
                 }
@@ -40,7 +40,7 @@ namespace Lab2.SnakeGame.Snake
                     if (segment.X == x && segment.Y == y)
                     {
                         isValid = false;
-                        break;
+                  
                     }
                 }
 

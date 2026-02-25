@@ -15,23 +15,19 @@ namespace Lab2.SnakeGame.Snake
         public static int CountFeed;
         const int m =20, n = 20;
         public string[,] GameField;
-        private static Snake snake;
+        private Snake snake;
         private static List<Obstacle> obstacles;
         private static Food food;
-        public static Coord SnakeHead { get { return new Coord(snake.headX,snake.headY); } }
+        public  Coord SnakeHead { get { return new Coord(snake.headX,snake.headY); } }
         public Game()
         {
             GameField = new string[m,n];
         }
-        public  bool WallCollision()
+        private bool WallCollision()
         {
-            if (snake.headX < 0 || snake.headX >= GameField.GetLength(0) || snake.headY < 0 || snake.headY >= GameField.GetLength(1))
-            {
-                return true;
-            }
-            return false;
+            return snake.headX < 0 || snake.headX >= GameField.GetLength(0) || snake.headY < 0 || snake.headY >= GameField.GetLength(1);
         }
-        public static bool SnakeTailCollision()
+        private bool SnakeTailCollision()
         {
             foreach (var segment in snake.GetBody())
             {

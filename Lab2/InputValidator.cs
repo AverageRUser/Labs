@@ -82,20 +82,21 @@ namespace Lab2
             Console.Clear();
             Console.WriteLine("5. Выход");
             string s = "";
+            bool isExit = false;
             while (s != "н" && s != "д")
             {
                 Console.WriteLine("Вы уверены? д/н");
                 s = Console.ReadLine();
                 if (s == "д")
                 {
-                    return true;
+                    isExit = true;
                 }
                 else
                 {
                     WrongInputForegroundColor("Неверно введено значение. Нужно ввести либо д либо н");
                 }
             }
-            return false;
+            return isExit;
         }
     }
 }
