@@ -39,6 +39,7 @@
             GnomeSort = new Button();
             buttonInsert = new Button();
             Avglabel = new Label();
+            timeLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridArrays).BeginInit();
             SuspendLayout();
             // 
@@ -156,11 +157,22 @@
             Avglabel.TextAlign = ContentAlignment.MiddleCenter;
             Avglabel.Visible = false;
             // 
+            // timeLabel
+            // 
+            timeLabel.AutoSize = true;
+            timeLabel.Location = new Point(207, 428);
+            timeLabel.Name = "timeLabel";
+            timeLabel.Size = new Size(38, 15);
+            timeLabel.TabIndex = 12;
+            timeLabel.Text = "label2";
+            timeLabel.Visible = false;
+            // 
             // ArraySorting
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(650, 450);
+            ClientSize = new Size(650, 461);
+            Controls.Add(timeLabel);
             Controls.Add(Avglabel);
             Controls.Add(buttonInsert);
             Controls.Add(GnomeSort);
@@ -192,5 +204,6 @@
         private Button GnomeSort;
         private Button buttonInsert;
         private Label Avglabel;
+        private Label timeLabel;
     }
 }

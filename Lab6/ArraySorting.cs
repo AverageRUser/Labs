@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -140,28 +141,38 @@ namespace Lab6
             Avglabel.Text = $"Среднее арифметическое: {array.Avg()}";
         }
 
+
         private void GnomeSort_Click(object sender, EventArgs e)
         {
             ArrayProcess arrayClone = array.CloneArray();
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             arrayClone.GnomeSort();
+          
             for (int i = 0; i < array.Length; i++)
             {
                 dataGridArrays.Rows[i].Cells[2].Value = arrayClone[i];
 
             }
-          
+            sw.Stop();
+            timeLabel.Visible = true;
+            timeLabel.Text = "Время сортировки: " +sw.Elapsed.ToString() + " мс";
         }
 
         private void buttonInsert_Click(object sender, EventArgs e)
         {
             ArrayProcess arrayClone = array.CloneArray();
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             arrayClone.InsertionSort();
             for (int i = 0; i < array.Length; i++)
             {
                 dataGridArrays.Rows[i].Cells[3].Value = arrayClone[i];
 
             }
-       
+            sw.Stop();
+            timeLabel.Visible = true;
+            timeLabel.Text = "Время сортировки: " + sw.Elapsed.ToString() + " мс";
         }
     }
 }
