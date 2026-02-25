@@ -9,14 +9,19 @@ namespace Lab2.SnakeGame.Snake
     /// <summary>
     /// Класс припятствия
     /// </summary>
-    /// <param name="x,y">Координаты припятсвия</param>
     public class Obstacle
     {
-        private int x;
-        private int y;
+        private Coord coord;
         public const string CObstacle = "▲" ;
-        public int X { set { x = X; } get { return x; } }
-        public int Y { set { y = Y; } get { return y; } }
+        public int X { get { return coord.x; } }
+        public int Y { get { return coord.y; } }
+
+        /// <summary>
+        /// Инициализирует припятствие
+        /// </summary>
+        /// <param name="field" >Игровое поле</param>
+        /// <param name="food">Объект "Еда"</param>
+        /// <param name="snake">Объект "Змея"</param>
         public void Spawn(string[,] field, Snake snake, Food food)
         {
 
@@ -24,14 +29,14 @@ namespace Lab2.SnakeGame.Snake
 
             do
             {
-
-                Game.SetSpawnCoord(ref x, ref y, field.GetLength(0), field.GetLength(1));
+                
+                Game.SetSpawnCoord(coord, new Coord(field.GetLength(0), field.GetLength(1)));
                 isValid = true;
                 var body = snake.GetBody().ToArray();
 
                 foreach (var segment in body)
                 {
-                    if (segment.x == x && segment.y == y || x == food.X && y == food.Y)
+                    if (segment.x == X && segment.y == Y || X == food.X && Y == food.Y)
                     {
                         isValid = false;
                      
@@ -39,11 +44,17 @@ namespace Lab2.SnakeGame.Snake
                 }
             } while (!isValid);
         }
+        /// <summary>
+        /// Отображает припятствие на игровом поле
+        /// </summary>
+        /// <param name="field" >Игровое поле</param>
+        /// <param name="food">Объект "Еда"</param>
+        /// <param name="snake">Объект "Змея"</param>
         public void Print(string[,] field, Snake snake, Food food)
         {
 
             Spawn(field, snake, food);
-            field[x, y] = CObstacle;
+            field[X, Y] = CObstacle;
 
         }
     }

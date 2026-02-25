@@ -1,28 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Lab2;
 
-namespace Lab2
+namespace Lab1
 {
-    internal static class GuessGame
+    internal class Program
     {
-        /// <summary>
-        /// Выводит массив на консоль
-        /// </summary>
-        /// <param name="array">Массив для вывода</param>
         public static double CalculateFunction(int a, int b)
         {
             double f = -4 * Math.Pow(Math.Sin(3 * a), 3) + (Math.Sqrt(b) / Math.Log(b + 2));
             return f;
         }
-        /// <summary>
-        /// Выводит массив на консоль
-        /// </summary>
-        /// <param name="array">Массив для вывода</param>
-        public static void Start()
+
+        public static void GameStart()
         {
             bool isPlaying = true;
             while (isPlaying)
@@ -75,6 +63,41 @@ namespace Lab2
 
 
             }
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+            int enter;
+
+            bool exit = false;
+
+
+            do
+            {
+
+                Console.WriteLine("1. Отгадай число");
+                Console.WriteLine("2. Выход");
+
+                enter = InputValidator.FillInt("Выберите действие: ");
+                switch (enter)
+                {
+                    case 1:
+
+                        GameStart();
+                        break;
+
+                    case 2:
+                        exit = InputValidator.Exit();
+
+                        break;
+                    default:
+                        Console.WriteLine("Введённое число не соотвествует пункту меню");
+                        break;
+
+                }
+
+
+            } while (!exit);
         }
     }
 }

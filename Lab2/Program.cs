@@ -15,7 +15,7 @@ namespace Lab2
             
             InputValidator.InputLengthArray(out n);
             ArrayProcess array = new ArrayProcess(n);
-            ArrayProcess ArrClone = new ArrayProcess(array);
+            ArrayProcess ArrClone = new ArrayProcess(array.Array);
             Console.WriteLine("Исходный массив: ");
             array.PrintArray();
             Console.WriteLine("Сортировка вставками: ");
@@ -39,8 +39,8 @@ namespace Lab2
                 Console.WriteLine("Время выполнения методов сортировок одинаковы");
                 
             }
-            Console.WriteLine("Время работы сортировки вставками: " + sw.Elapsed + "мс");
-            Console.WriteLine("Время работы гномьи сортировки: " + sw.Elapsed + "мс");
+            Console.WriteLine("Время работы сортировки вставками: " + sw.Elapsed.TotalMilliseconds + " мс");
+            Console.WriteLine("Время работы гномьи сортировки: " + se.Elapsed.TotalMilliseconds + " мс");
         }
         public static void SnakeGame()
         {

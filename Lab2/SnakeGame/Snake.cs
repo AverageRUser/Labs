@@ -41,11 +41,12 @@ namespace Lab2.SnakeGame.Snake
         private int size = 3;
         
         public int Length { get { return size; } }
-        /// <summary>
-        /// Инициализация тела змейки
-        /// </summary>
-        /// <param name="startX,startY">Начаьные координаты головы змейки</param>
 
+        /// <summary>
+        /// Инициализирует тело змейки, начиная с указанной позиции.
+        /// </summary>
+        /// <param name="startX">Начальная координата X (голова будет смещена по Y).</param>
+        /// <param name="startY">Начальная координата Y (первый сегмент хвоста).</param>
         public void InitializeBody(int startX, int startY)
         {
             body.Clear();
@@ -56,15 +57,27 @@ namespace Lab2.SnakeGame.Snake
             {
                 body.Enqueue(new Coord(startX,startY+i));
             }
-          //  body.Enqueue(new Coord(headX,headY));
+          
         }
-
+        /// <summary>
+        /// Перемещает голову змейки в новые координаты и при необходимости удаляет последний сегмент хвоста.
+        /// </summary>
+        /// <param name="newX">Новая координата X головы.</param>
+        /// <param name="newY">Новая координата Y головы.</param>
+        /// <returns>
+        /// Координаты удалённого сегмента хвоста, если длина превышает текущий размер; 
+        /// иначе возвращает <c>new Coord(-1, 1)</c> (означает, что удаления не произошло).
+        /// </returns>
         public Coord Move(int newX, int newY)
         {
             body.Enqueue(new Coord(newX, newY));
 
             return body.Count > size ? body.Dequeue() : new Coord(-1, 1);
         }
+        /// <summary>
+        /// Перерисовывает змейку на игровом поле, заменяя соответствующие ячейки символами головы и хвоста.
+        /// </summary>
+        /// <param name="m">Двумерный массив строк, представляющий игровое поле.</param>
         public void Redraw(string[,] m)
         {
 
@@ -83,19 +96,27 @@ namespace Lab2.SnakeGame.Snake
                 }
             }
         }
+        /// <summary>
+        /// Устанавливает начальные координаты змейки в безопасной области поля, инициализирует её тело и отображает на поле.
+        /// </summary>
+        /// <param name="m">Двумерный массив строк, представляющий игровое поле.</param>
         public void Print(string[,] m)
         {
-            int x= 0, y=0;
-            Game.SetSpawnCoord(ref x, ref y, m.GetLength(0), m.GetLength(1));
-            InitializeBody(x, y);
+            Coord coord = new Coord(0,0);
+            Game.SetSpawnCoord(coord, new Coord( m.GetLength(0), m.GetLength(1)));
+            InitializeBody(coord.x, coord.y);
             Redraw(m);
 
         }
+        /// <summary>Увеличивает длину змейки на один сегмент.</summary>
         public void Grow()
         {
             size++;
         }
-
+        /// <summary>
+        /// Возвращает очередь, содержащую координаты всех сегментов тела змейки.
+        /// </summary>
+        /// <returns>Очередь <see cref="Queue{Coord}"/> с координатами сегментов.</returns>
         public Queue<Coord> GetBody()
         {
             return body;

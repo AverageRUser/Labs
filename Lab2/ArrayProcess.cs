@@ -9,25 +9,15 @@ namespace Lab2
 {
     public class ArrayProcess
     {
-        private int _length;
-        private int[] _array;
-
-        /// <summary>
-        /// Количество элементов в массиве
-        /// </summary>
-        public int Length
-        {
-            get { return _length; }
-            private set { _length = value; }
-        }
+        private int[] array;
 
         /// <summary>
         /// Массив элементов
         /// </summary>
         public int[] Array
         {
-            get { return _array; }
-            private set { _array = value; }
+            get { return array; }
+            private set { array = value; }
         }
 
         /// <summary>
@@ -35,8 +25,8 @@ namespace Lab2
         /// </summary>
         public ArrayProcess()
         {
-            Length = 10;
-            Array = InitializeArray(Length);
+       
+            Array = InitializeArray(10);
         }
 
         /// <summary>
@@ -45,13 +35,21 @@ namespace Lab2
         /// <param name="length">Количество элементов в массиве</param>
         public ArrayProcess(int length)
         {
-            Length = length;
-            Array = InitializeArray(Length);
+
+            Array = InitializeArray(length);
         }
-        public ArrayProcess(ArrayProcess array)
+        /// <summary>
+        /// Конструктор с параметрами
+        /// </summary>
+        /// <param name="array">Количество элементов в массиве</param>
+        public ArrayProcess(int[] array)
         {
-            Length = array.Length;
-            Array = array.Array;
+      
+            Array = new int[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                Array[i] = array[i];
+            }
 
         }
         
@@ -62,7 +60,7 @@ namespace Lab2
         /// <returns>Отсортированный массив</returns>
         public int[] InsertionSort()
         {
-            for (int i = 1; i < Length; i++)
+            for (int i = 1; i < array.Length; i++)
             {
                 int temp = Array[i];
                 int j = i - 1;
@@ -130,8 +128,6 @@ namespace Lab2
         /// <returns>Копия массива</returns>
         public ArrayProcess CloneArray(int[] arr)
         {
-            if (arr == null)
-                return null;
 
             ArrayProcess copy = new ArrayProcess(arr.Length);
             for (int i = 0; i < arr.Length; i++)
@@ -147,14 +143,14 @@ namespace Lab2
         /// <param name="array">Массив для вывода</param>
         public void PrintArray()
         {
-            if (Length > 10)
+            if (array.Length > 10)
             {
                 Console.WriteLine("Невозможно вывести массив так как его длина больше 10");
                 return;
             }
 
             Console.WriteLine();
-            for (int i = 0; i < Length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
                 Console.Write(" " + Array[i] + " ");
             }

@@ -19,10 +19,14 @@ namespace Lab2.SnakeGame.Snake
         private static List<Obstacle> obstacles;
         private static Food food;
         public  Coord SnakeHead { get { return new Coord(snake.headX,snake.headY); } }
+        /// <summary>
+        /// Конструктор по умолчанию
+        /// </summary>
         public Game()
         {
             GameField = new string[m,n];
         }
+  
         private bool WallCollision()
         {
             return snake.headX < 0 || snake.headX >= GameField.GetLength(0) || snake.headY < 0 || snake.headY >= GameField.GetLength(1);
@@ -36,7 +40,10 @@ namespace Lab2.SnakeGame.Snake
             }
             return false;
         }
-
+        /// <summary>
+        /// Обновляет состояние игры
+        /// </summary>
+        /// <param name="direction">Клавиша направления</param>
         public void StateUpdate(ConsoleKey? direction = null)
         {
             if (direction.HasValue)
@@ -98,12 +105,15 @@ namespace Lab2.SnakeGame.Snake
                 snake.Redraw(GameField);
             }
         }
-        public static void SetSpawnCoord(ref int x, ref int y, int maxX, int maxY)
+        public static void SetSpawnCoord(Coord coord, Coord max)
         {
             Random random = new Random();
-            x = random.Next(1, maxX - 1);
-            y = random.Next(1, maxY - 3);
+            coord.x = random.Next(1, max.x - 1);
+            coord.y = random.Next(1, max.y - 3);
         }
+        /// <summary>
+        /// Инициализирует двухмерный массив игрового поля
+        /// </summary>
         public void InitializeField()
         {
             for (int x = 0; x < m; x++)
@@ -115,7 +125,10 @@ namespace Lab2.SnakeGame.Snake
 
             }
         }
-        public  void PrintField()
+        /// <summary>
+        /// Выводит игровое поле
+        /// </summary>
+        public void PrintField()
         {
             for (int x = 0; x < m; x++)
             {
@@ -126,11 +139,8 @@ namespace Lab2.SnakeGame.Snake
                 Console.WriteLine();
             }
         }
-        public static void Restart()
-        {
-            CountFeed = 0;
-        }
-        public  void Start()
+
+        public void Start()
         {
             snake = new Snake();
             food = new Food();

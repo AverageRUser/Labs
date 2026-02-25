@@ -9,11 +9,17 @@ namespace Lab2.SnakeGame.Snake
 {
     public class Food
     {
-        private int x;
-        private int y;
+        private Coord coord;
+    
         public string CFood = "♥";
-        public int X { set { x = X; } get { return x; } }
-        public int Y { set { y = Y; } get { return y; } }
+        public int X { get { return coord.x; } }
+        public int Y { get { return coord.y; } }
+        /// <summary>
+        /// Инициализирует еду
+        /// </summary>
+        /// <param name="field" >Игровое поле</param>
+        /// <param name="obstacles">Список препятствии</param>
+        /// <param name="snake">Объект "Змея"</param>
         public void Spawn(string[,] field, Snake snake, List<Obstacle> obstacles)
         {
 
@@ -22,13 +28,13 @@ namespace Lab2.SnakeGame.Snake
             do
             {
 
-                Game.SetSpawnCoord(ref x, ref y, field.GetLength(0), field.GetLength(1));
+                Game.SetSpawnCoord(coord,new Coord(field.GetLength(0), field.GetLength(1)));
                 isValid = true;
                 var body = snake.GetBody().ToArray();
 
                 foreach (var segment in body)
                 {
-                    if (segment.x == x && segment.y == y)
+                    if (segment.x == X && segment.y == Y)
                     {
                         isValid = false;
            
@@ -37,7 +43,7 @@ namespace Lab2.SnakeGame.Snake
                 }
                 foreach (var segment in obstacles)
                 {
-                    if (segment.X == x && segment.Y == y)
+                    if (segment.X == X && segment.Y == Y)
                     {
                         isValid = false;
                   
@@ -46,10 +52,16 @@ namespace Lab2.SnakeGame.Snake
 
             } while (!isValid);
         }
+        /// <summary>
+        /// Отображает еду на игровом поле
+        /// </summary>
+        /// <param name="field" >Игровое поле</param>
+        /// <param name="obstacles">Список препятствии</param>
+        /// <param name="snake">Объект "Змея"</param>
         public void Print(string[,] field, Snake snake, List<Obstacle> obstacles)
         {
             Spawn(field, snake, obstacles);
-            field[x, y] = CFood;
+            field[X, Y] = CFood;
         }
     }
 }
